@@ -1,34 +1,79 @@
+const resizeButton = document.querySelector(".button Resize");
+const clearButton = document.querySelector(".button Clear");
+const rainbowButton = document.querySelector(".button Rainbow");
+const randomColorButton = document.querySelector(".button randomColor");
+const table = document.querySelector(".grid container");
+
+startTable(16);
+
+resizeButton.addEventListener("click", makeTable);
+clearButton.addEventListener("click", clearTable);
+rainbowButton.addEventListener("click", rainbowCellColor);
+randomColorButton.addEventListener("click", randomCellColor);
 
 
-function gridGenerator(gridWidth, gridHeight){
+//Clears the table to become a blank canvas
+const clearTable = () => {
+    cell = document.querySelectorAll(".grid")
+    cell.forEach((div) => {
+        div.style.backgroundColor = ""
+    });
+};
 
-    const container = document.querySelector(".container");
+//Makes the color of each cell randomized rainbow.
+const rainbowCellColor = () => {
+    cell = document.querySelectorAll(".grid")
+    const color = Math.floor(Math.random()*16777215).toString(16);
+    cell.forEach((div) => {
+        div.addEventListener("mouseover", () => {
+            div.style.backgroundColor = "#" + color
+        });
+    });
+};
 
-    let cellWidth = (650/gridWidth);
-    let cellHeight = (475/gridHeight);
-    let cellWidthpx = cellWidth.toString()+"px";
-    let cellHeightpx = cellHeight.toString()+"px";
+//One random color for cells
+const randomCellColor = () => {
+    cell = document.querySelectorAll(".grid")
+    cell.forEach((div) => {
+        div.addEventListener("mouseover", () => {
+            div.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+        });
+    });
+};
+
+//Color changes
+const changeColor = () => {
+    cell = document.querySelectorAll(".grid")
+    cell.forEach((div) => {
+        div.addEventListener("mouseover", () => {
+            div.style.backgroundColor = "rgb(44, 196, 90)";
+        });
+    });
+}
 
 
-    for (let i = 1; i < gridWidth; i++){
-        let gridRow = document.createElement("div");
-        gridRow.classList = "gridRow";
-    
 
-    for (let n =1; n <= gridHeight; n++){
-        let gridCell = document.createElement("div");
-        gridCell.classList = "gridCell";
-        gridCell.style.display = "table-cell";
-        gridCell.style.margin = "none";
-        gridCell.style.padding = "0px";
-        gridCell.style.borderRadius = "3px";
-        gridCell.style.width = "cellWidthPx";
-        gridCell.style.height = "cellHeightPx";
-
-        gridRow.appendChild(gridCell);
+const startTable = (n) => {
+    for(i=0; i<n*n; i++){
+        row = document.createElement("div");
+        row.setAttribute("id", "grid-item" + i);
+        row.classList.add("grid")
+        table.appendChild(row);
     };
-
-        container.appendChild(gridRow);
+    changeColor();
 };
 
+const makeTable = () => {
+    table.innerHTML ="";
+    var n = prompt ("Please Enter a Number Between 10-100");
+    if (isNaN(n)){
+        alert("Please enter a number between 10 - 100")
+    }else if (n<=0 || n > 100{
+        alert("Pleaes enter a number between 10 - 100")
+    }else{
+        startTable(n);
+        table.style.gridTemplateColumns = repeat(" "+ n +" ", auto);
+    };
 };
+
+makeTable();
